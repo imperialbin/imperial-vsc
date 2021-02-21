@@ -37,7 +37,6 @@ function activate(context) {
             "Upload failed! You're probably being rate limited!"
           );
 
-        console.log(document);
         // If succeeds
         vscode.window
           .showInformationMessage(
