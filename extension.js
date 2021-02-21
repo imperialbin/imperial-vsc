@@ -32,12 +32,10 @@ function activate(context) {
       // Create the document with the document settings
       api.createDocument(code, documentSettings, (err, document) => {
         // If rate limited/internal server error
-        if (err) {
-          console.log(err);
+        if (err)
           return vscode.window.showInformationMessage(
             "Upload failed! You're probably being rate limited!"
           );
-        }
 
         console.log(document);
         // If succeeds
