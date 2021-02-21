@@ -18,7 +18,10 @@
     "commands": [
       {
         "command": "imperial.uploadCode",
-        "title": "Upload selected code"
+        "title": "Upload selected code",
+        "icon":{
+          "dark": ""
+        }
       }
     ],
     "keybindings": [
