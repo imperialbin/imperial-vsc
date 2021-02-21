@@ -91,6 +91,10 @@
     "pretest": "npm run lint",
     "test": "node ./test/runTest.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:imperialbin/imperial-vsc.git"
+  },
   "devDependencies": {
     "@types/vscode": "^1.53.0",
     "@types/glob": "^7.1.3",
