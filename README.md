@@ -11,7 +11,7 @@ ImperialBin is a hastebin alternative built with UI and user experience in mind.
 
 Quickly upload text and retrieve a URL with the text!
 
-![Upload Example GIF](https://media.giphy.com/media/YseOuoWYEdP96A8Hm1/giphy.gif)
+![feature gif](./assets/feature.gif)
 
 ## Settings
 
