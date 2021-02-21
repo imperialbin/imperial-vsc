@@ -1,6 +1,6 @@
 {
-  "name": "imperial-vsc",
-  "displayName": "imperial-vsc",
+  "name": "imperial",
+  "displayName": "imperial",
   "description": "A hastebin alternative with rich features and user experience in mind",
   "version": "5.0.0",
   "engines": {
