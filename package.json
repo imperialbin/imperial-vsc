@@ -1,40 +1,98 @@
 {
-	"name": "imperial-vsc",
-	"displayName": "imperial-vsc",
-	"description": "A hastebin alternative with rich features and user experience in mind",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.53.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:imperial-vsc.helloWorld"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "imperial-vsc.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.53.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.4",
-		"@types/node": "^12.11.7",
-		"eslint": "^7.19.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.2.1",
-		"typescript": "^4.1.3",
-		"vscode-test": "^1.5.0"
-	}
+  "name": "imperial-vsc",
+  "displayName": "imperial-vsc",
+  "description": "A hastebin alternative with rich features and user experience in mind",
+  "version": "5.0.0",
+  "engines": {
+    "vscode": "^1.53.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:imperial.uploadCode"
+  ],
+  "icon": "logo.png",
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "imperial.uploadCode",
+        "title": "Upload selected code"
+      }
+    ],
+    "keybindings": [
+      {
+        "when": "editorHasSelection",
+        "command": "imperial.uploadCode",
+        "key": "ctrl+shift+s",
+        "mac": "shift+cmd+s"
+      }
+    ],
+    "configuration": {
+      "title": "Imperial",
+      "properties": {
+        "imperial.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "API key (You need an API key for the below features and no API limit! Visit https://imperialb.in/account to get yours!)"
+        },
+        "imperial.longerUrls": {
+          "type": "boolean",
+          "default": false,
+          "description": "Would you like longer URLs for your pastes? (more secure)."
+        },
+        "imperial.instantDelete": {
+          "type": "boolean",
+          "default": false,
+          "description": "Would you like your pastes to instantly delete after being viewed?"
+        },
+        "imperial.imageEmbed": {
+          "type": "boolean",
+          "default": false,
+          "description": "Would you like image embeds with your pastes?"
+        },
+        "imperial.expiration": {
+          "type": "number",
+          "default": "5",
+          "description": "How long would you like your pastes to last in days? (Max is 31 with API key, without API key it is max of 5 days)"
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "imperial.uploadCode",
+          "group": "9_cutcopypaste"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "editorHasSelection",
+          "command": "imperial.uploadCode",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.53.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  },
+  "dependencies": {
+    "imperial-node": "^1.2.4"
+  }
 }

@@ -1,36 +1,77 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-const vscode = require('vscode');
-
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const vscode = require("vscode");
+const Imperial = require("imperial-node").Imperial;
 
 /**
  * @param {vscode.ExtensionContext} context
  */
+
 function activate(context) {
+  let disposable = vscode.commands.registerCommand(
+    "imperial.uploadCode",
+    function () {
+      const config = vscode.workspace.getConfiguration("imperial");
+      const editor = vscode.window.activeTextEditor;
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "imperial-vsc" is now active!');
+      // Check if the editor is active
+      if (!editor) return;
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('imperial-vsc.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
+      // Get the text/code selected.
+      const code = editor.document.getText(editor.selection);
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from imperial-vsc!');
-	});
+      // Set API token
+      const api = new Imperial(config.apiToken);
 
-	context.subscriptions.push(disposable);
+      // Document settings
+      const documentSettings = {
+        longerUrls: config.longerUrls || false,
+        instantDelete: config.instantDelete || false,
+        imageEmbed: config.imageEmbed || false,
+        expiration: config.expiration || 5,
+      };
+
+      console.log(documentSettings);
+
+      // Create the document with the document settings
+      api.createDocument(code, documentSettings, (err, document) => {
+        // If rate limited/internal server error
+        if (err) {
+          console.log(err);
+          return vscode.window.showInformationMessage(
+            "Upload failed! You're probably being rate limited!"
+          );
+        }
+
+        console.log(document);
+        // If succeeds
+        vscode.window
+          .showInformationMessage(
+            `Upload succeeded! \n ${document.formattedLink}`,
+            "Copy link",
+            "Open document"
+          )
+          .then(async (selection) => {
+            // If user selects copy link
+            if (selection === "Copy link") {
+              await vscode.env.clipboard.writeText(document.formattedLink);
+            } else if (selection === "Open document") {
+              // If user selects open document
+              await vscode.commands.executeCommand(
+                "vscode.open",
+                vscode.Uri.parse(document.formattedLink)
+              );
+            }
+          });
+      });
+    }
+  );
+
+  context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
 function deactivate() {}
 
 module.exports = {
-	activate,
-	deactivate
-}
+  activate,
+  deactivate,
+};
