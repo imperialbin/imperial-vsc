@@ -19,8 +19,9 @@
       {
         "command": "imperial.uploadCode",
         "title": "Upload selected code",
-        "icon":{
-          "dark": ""
+        "icon": {
+          "dark": "./assets/saveDark.svg",
+          "light": "./assets/saveLight.svg"
         }
       }
     ],
