@@ -29,8 +29,6 @@ function activate(context) {
         expiration: config.expiration || 5,
       };
 
-      console.log(documentSettings);
-
       // Create the document with the document settings
       api.createDocument(code, documentSettings, (err, document) => {
         // If rate limited/internal server error
