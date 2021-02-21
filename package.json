@@ -6,6 +6,12 @@
   "engines": {
     "vscode": "^1.53.0"
   },
+  "publisher": "Looskie",
+  "author": {
+    "email": "hello@looskie.com",
+    "name": "Looskie",
+    "url": "https://looskie.com"
+  },
   "categories": [
     "Other"
   ],
