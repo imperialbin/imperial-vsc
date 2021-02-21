@@ -39,7 +39,6 @@ MacOS:
 
 ## Requirements
 
-- `qc`
-- `axios`
+- `imperial-node`
 
 while these should come preinstalled with the extension, every system is different. If you face any troubles, try installing/resintalling these first.
