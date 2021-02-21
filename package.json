@@ -2,16 +2,14 @@
   "name": "imperial",
   "displayName": "imperial",
   "description": "A hastebin alternative with rich features and user experience in mind",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "engines": {
     "vscode": "^1.53.0"
   },
-  "publisher": "Looskie",
-  "author": {
-    "email": "hello@looskie.com",
-    "name": "Looskie",
-    "url": "https://looskie.com"
-  },
+	"publisher": "Looskie",
+	"author": {
+		"name": "Looskie"
+	},
   "categories": [
     "Other"
   ],
