@@ -18,7 +18,7 @@
   "activationEvents": [
     "onCommand:imperial.uploadCode"
   ],
-  "icon": "./assets/logo.png",
+  "icon": "assets/logo.png",
   "main": "./extension.js",
   "contributes": {
     "commands": [
