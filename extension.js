@@ -6,7 +6,8 @@ const Imperial = require("imperial-node").Imperial;
  */
 function activate(context) {
 
-  /* Rawr x3 nuzzles how are you pounces on you you're so warm o3o notices you
+  /* 
+  Rawr x3 nuzzles how are you pounces on you you're so warm o3o notices you
   have a bulge o: someone's happy ;) nuzzles your necky wecky~ murr~ hehehe
   rubbies your bulgy wolgy you're so big :oooo rubbies more on your bulgy wolgy
   it doesn't stop growing ·///· kisses you and lickies your necky daddy likies
@@ -22,7 +23,9 @@ function activate(context) {
   deeply oh god im so hard~ licks balls punish me daddy~ nyea~ squirms more and
   wiggles butt I love your musky goodness bites lip please punish me licks lips
   nyea~ suckles on your tip so good licks pre of your cock salty goodness~ eyes
-  role back and goes balls deep mmmm~ moans and suckles o3o
+  role back and goes balls deep mmmm~ moans and suckles o3o 
+  
+  (Tech) - https://www.youtube.com/watch?v=z1n9Jly3CQ8
   */
  
   const disposable = vscode.commands.registerCommand(
