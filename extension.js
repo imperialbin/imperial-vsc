@@ -22,7 +22,7 @@ function activate(context) {
   deeply oh god im so hard~ licks balls punish me daddy~ nyea~ squirms more and
   wiggles butt I love your musky goodness bites lip please punish me licks lips
   nyea~ suckles on your tip so good licks pre of your cock salty goodness~ eyes
-  role back and goes balls deep mmmm~ moans and suckles o3o 
+  role back and goes balls deep mmmm~ moans and suckles o3o
   */
  
   const disposable = vscode.commands.registerCommand(
