@@ -6,10 +6,11 @@
   "engines": {
     "vscode": "^1.53.0"
   },
-	"publisher": "Looskie",
-	"author": {
-		"name": "Looskie"
-	},
+  "license": "MPL-2.0",
+  "publisher": "Looskie",
+  "author": {
+    "name": "Looskie"
+  },
   "categories": [
     "Other"
   ],
