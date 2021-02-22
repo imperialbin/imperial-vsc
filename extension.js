@@ -27,10 +27,15 @@ function activate(context) {
         selectedCode,
         documentSettings,
         async (err, document) => {
+          // If an error occurs
+
           if (err)
             return vscode.window.showInformationMessage(
               "This upload failed, you may be getting rate limited!"
             );
+
+          // If it succeeds
+
           const selection = await vscode.window.showInformationMessage(
             /* Text */
             `Uploaded selected text to Imperial!\n${document.formattedLink}`,
