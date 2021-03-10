@@ -1,11 +1,12 @@
 # Imperial README
 
-ImperialBin is a hastebin alternative built with UI and user experience in mind.
+Imperial is a hastebin alternative built with UI and user experience in mind.
 
 ### Connect With Us!
 
 - [ImperialBin](https://Imperialb.in)
-- [Discord](https://discord.gg/cTm85eW49D)
+- [Discord](https://Imperialb.in/discord)
+- [Github](https://Imperialb.in/github)
 
 ## Features
 

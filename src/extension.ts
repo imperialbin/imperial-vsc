@@ -32,7 +32,7 @@ export function activate(context: ExtensionContext): any {
   (Tech) - https://www.youtube.com/watch?v=z1n9Jly3CQ8
   */
 
-  const disposable = commands.registerCommand("imperial.uploadCode", () => {
+  const disposable = commands.registerCommand("imperial.uploadDocument", () => {
     const config = workspace.getConfiguration("imperial");
     const editor = window.activeTextEditor;
 

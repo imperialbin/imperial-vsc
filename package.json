@@ -15,14 +15,14 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:imperial.uploadCode"
+    "onCommand:imperial.uploadDocument"
   ],
   "icon": "assets/logo.png",
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "imperial.uploadCode",
+        "command": "imperial.uploadDocument",
         "title": "Upload selected code",
         "icon": {
           "dark": "./assets/icons/saveDark.svg",
@@ -33,7 +33,7 @@
     "keybindings": [
       {
         "when": "editorHasSelection",
-        "command": "imperial.uploadCode",
+        "command": "imperial.uploadDocument",
         "key": "ctrl+shift+s",
         "mac": "shift+cmd+s"
       }
@@ -72,14 +72,14 @@
       "editor/context": [
         {
           "when": "editorHasSelection",
-          "command": "imperial.uploadCode",
+          "command": "imperial.uploadDocument",
           "group": "9_cutcopypaste"
         }
       ],
       "editor/title": [
         {
           "when": "editorHasSelection",
-          "command": "imperial.uploadCode",
+          "command": "imperial.uploadDocument",
           "group": "navigation"
         }
       ]
