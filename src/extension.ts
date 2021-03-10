@@ -1,7 +1,15 @@
-import * as vscode from 'vscode';
+import {
+  ExtensionContext,
+  commands,
+  workspace,
+  window,
+  env,
+  Uri,
+} from "vscode";
+import { DocumentSettings } from "./utilities/DocumentSettingsInterface";
+import { Imperial } from "imperial-node";
 
-export function activate(context: vscode.ExtensionContext) {
-  
+export function activate(context: ExtensionContext) {
   /* 
   Rawr x3 nuzzles how are you pounces on you you're so warm o3o notices you
   have a bulge o: someone's happy ;) nuzzles your necky wecky~ murr~ hehehe
@@ -24,13 +32,55 @@ export function activate(context: vscode.ExtensionContext) {
   (Tech) - https://www.youtube.com/watch?v=z1n9Jly3CQ8
   */
 
-  console.log('Congratulations, your extension "imperial-vsc" is now active!');
-  let disposable = vscode.commands.registerCommand(
-    "imperial-vsc.helloWorld",
-    () => {
-      vscode.window.showInformationMessage("Hello World from imperial-vsc!");
-    }
-  );
+  const disposable = commands.registerCommand("imperial.uploadCode", () => {
+    const config = workspace.getConfiguration("imperial");
+    const editor = window.activeTextEditor;
+
+    // If there is no editor
+    if (!editor) return;
+
+    // Current highlighted code
+    const selectedCode = editor.document.getText(editor.selection);
+
+    const imperialAPI = new Imperial(config.apiToken);
+    const documentSettings: DocumentSettings = {
+      longerUrls: config.longerUrls || false,
+      instantDelete: config.instantDelete || false,
+      imageEmbed: config.imageEmbed || false,
+      expiration: config.expiration || 5,
+      encrypted: config.encrypted || false,
+    };
+
+    imperialAPI.createDocument(
+      selectedCode,
+      documentSettings,
+      async (err, document) => {
+        // if error
+        if (err)
+          return window.showInformationMessage(
+            "This upload failed, you may be getting rate limited!"
+          );
+
+        // If it succeeds
+        const selection = await window.showInformationMessage(
+          // text
+          `Uploaded selected text to Imperial!\n${document?.formattedLink}`,
+          "Copy link",
+          "Open document"
+        );
+
+        const btnSelection = selection?.toLowerCase();
+        if (btnSelection === "copy link") {
+          return await env.clipboard.writeText(document!.formattedLink);
+        } else if (btnSelection === "open document") {
+          return await commands.executeCommand(
+            "vscode.open",
+            Uri.parse(document!.formattedLink)
+          );
+        }
+      }
+    );
+  });
 
   context.subscriptions.push(disposable);
 }
