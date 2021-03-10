@@ -3,5 +3,4 @@ export interface DocumentSettings {
   imageEmbed: boolean;
   instantDelete: boolean;
   expiration: number;
-  encrypted: boolean;
 }

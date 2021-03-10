@@ -48,7 +48,6 @@ export function activate(context: ExtensionContext) {
       instantDelete: config.instantDelete || false,
       imageEmbed: config.imageEmbed || false,
       expiration: config.expiration || 5,
-      encrypted: config.encrypted || false,
     };
 
     imperialAPI.createDocument(
