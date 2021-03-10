@@ -36,7 +36,7 @@ MacOS:
 
 ### Extension
 
-- `Imperial.uploadCode`: Uploads the code to ImperialBin and responds with a URL of your paste.
+- `Imperial.uploadDocument`: Uploads the selected text to Imperial and responds with a URL of your document.
 
 ## Requirements
 
