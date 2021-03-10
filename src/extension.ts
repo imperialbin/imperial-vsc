@@ -9,7 +9,7 @@ import {
 import { DocumentSettings } from "./utilities/DocumentSettingsInterface";
 import { Imperial } from "imperial-node";
 
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): any {
   /* 
   Rawr x3 nuzzles how are you pounces on you you're so warm o3o notices you
   have a bulge o: someone's happy ;) nuzzles your necky wecky~ murr~ hehehe
