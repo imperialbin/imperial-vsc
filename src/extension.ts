@@ -13,14 +13,23 @@ export function activate(context: vscode.ExtensionContext) {
       if (selectedCode.trim().length === 0) return;
 
       const config = vscode.workspace.getConfiguration("imperial");
-      const settings: Record<string, string | boolean | null> = {
+      const settings: Record<string, string | boolean | null | undefined> = {
         apiToken: config.get("apiToken") ?? "",
         longerURLs: config.get("longerURLs") ?? false,
         shortURLs: config.get("shortURLs") ?? false,
         imageEmbed: config.get("imageEmbed") ?? false,
         expiration: config.get("expiration") ?? null,
         encrypted: config.get("encrypted") ?? false,
+        password: undefined,
       };
+
+      if (settings.encrypted) {
+        settings.password = await vscode.window.showInputBox({
+          prompt:
+            "Enter a password to encrypt the document with (leave blank for autogen)",
+          password: true,
+        });
+      }
 
       const response = await fetch("https://imperial.hop.sh/v1/document", {
         method: "POST",
@@ -38,6 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
             imageEmbed: settings.imageEmbed,
             expiration: settings.expiration,
             encrypted: settings.encrypted,
+            password: settings.password,
             language: vscode.window.activeTextEditor?.document.languageId,
           },
         }),
@@ -56,6 +66,12 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
+      const formattedLink = `${parsedResponse.data.links.formatted}${
+        parsedResponse.data.settings.encrypted
+          ? `#${parsedResponse.data.password}`
+          : ""
+      }`;
+
       const selection = await vscode.window.showInformationMessage(
         `Uploaded to IMPERIAL!\n${parsedResponse.data.links.formatted}`,
         "Copy link",
@@ -66,14 +82,12 @@ export function activate(context: vscode.ExtensionContext) {
 
       switch (btnSelection) {
         case "copy link":
-          await vscode.env.clipboard.writeText(
-            parsedResponse.data.links.formatted
-          );
+          await vscode.env.clipboard.writeText(formattedLink);
           break;
         case "open document":
           await vscode.commands.executeCommand(
             "vscode.open",
-            vscode.Uri.parse(parsedResponse.data.links.formatted)
+            vscode.Uri.parse(formattedLink)
           );
           break;
         default:
