@@ -37,10 +37,15 @@
           "default": "",
           "description": "API key (You need an API key for the below features and better API limit! Visit https://imperialb.in/account to get yours!)"
         },
-        "imperial.longerURLs": {
+        "imperial.longURLs": {
           "type": "boolean",
           "default": false,
           "description": "32 character long URLs"
+        },
+        "imperial.shortURLs": {
+          "type": "boolean",
+          "default": false,
+          "description": "4 character long URLs"
         },
         "imperial.instantDelete": {
           "type": "boolean",
