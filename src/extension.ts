@@ -38,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
             imageEmbed: settings.imageEmbed,
             expiration: settings.expiration,
             encrypted: settings.encrypted,
+            language: vscode.window.activeTextEditor?.document.languageId,
           },
         }),
       });
