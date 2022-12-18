@@ -1,0 +1,112 @@
+{
+  "name": "imperial-vsc",
+  "displayName": "imperial-vsc",
+  "description": "Use IMPERIAL in your editor!",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:imperial.uploadDocument"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "imperial.uploadDocument",
+        "title": "Upload Document",
+        "icon": "$(save)"
+      }
+    ],
+    "keybindings": [
+      {
+        "when": "editorHasSelection",
+        "command": "imperial.uploadDocument",
+        "key": "ctrl+shift+s",
+        "mac": "shift+cmd+s"
+      }
+    ],
+    "configuration": {
+      "title": "Imperial",
+      "properties": {
+        "imperial.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "API key (You need an API key for the below features and better API limit! Visit https://imperialb.in/account to get yours!)"
+        },
+        "imperial.longerURLs": {
+          "type": "boolean",
+          "default": false,
+          "description": "32 character long URLs"
+        },
+        "imperial.instantDelete": {
+          "type": "boolean",
+          "default": false,
+          "description": "Instantly deletes the document after being viewed"
+        },
+        "imperial.imageEmbed": {
+          "type": "boolean",
+          "default": false,
+          "description": "Takes a snapshot of the document and embeds with OG tags"
+        },
+        "imperial.expiration": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null,
+          "description": "When the document expires, by default it will last forever. (in days)"
+        },
+        "imperial.encrypted": {
+          "type": "boolean",
+          "default": false,
+          "description": "Encrypts the document with AES256 with a password of your choice when provided, otherwise it will be encrypted with a cryptographically secure random password."
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "imperial.uploadDocument",
+          "group": "9_cutcopypaste"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "editorHasSelection",
+          "command": "imperial.uploadDocument",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/node-fetch": "2",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "node-fetch": "2"
+  }
+}
