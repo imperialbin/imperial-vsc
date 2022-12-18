@@ -42,8 +42,8 @@ export function activate(context: vscode.ExtensionContext) {
         body: JSON.stringify({
           content: selectedCode,
           settings: {
-            longerURLS: settings.longerURLS,
-            shortURLS: settings.shortURLS,
+            longerURLs: settings.longerURLS,
+            shortURLs: settings.shortURLS,
             imageEmbed: settings.imageEmbed,
             expiration: settings.expiration,
             encrypted: settings.encrypted,
