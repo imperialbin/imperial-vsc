@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as vscode from "vscode";
 import fetch from "node-fetch";
-import { Document, ImperialAPIResponse } from "./types";
+import { AcceptableSettings, Document, ImperialAPIResponse } from "./types";
 
 export function activate(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand(
@@ -14,9 +14,9 @@ export function activate(context: vscode.ExtensionContext) {
       if (selectedCode.trim().length === 0) return;
 
       const config = vscode.workspace.getConfiguration("imperial");
-      const settings: Record<string, string | boolean | null | undefined> = {
+      const settings: AcceptableSettings = {
         apiToken: config.get("apiToken") ?? "",
-        longerURLs: config.get("longerURLs") ?? false,
+        longURLs: config.get("longURLs") ?? false,
         shortURLs: config.get("shortURLs") ?? false,
         imageEmbed: config.get("imageEmbed") ?? false,
         expiration: config.get("expiration") ?? null,
@@ -36,13 +36,13 @@ export function activate(context: vscode.ExtensionContext) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: settings.apiToken as string,
+          Authorization: settings.apiToken,
         },
         body: JSON.stringify({
           content: selectedCode,
           settings: {
-            long_urls: settings.longerURLS,
-            short_urls: settings.shortURLS,
+            long_urls: settings.longURLs,
+            short_urls: settings.shortURLs,
             image_embed: settings.imageEmbed,
             expiration: settings.expiration,
             encrypted: settings.encrypted,

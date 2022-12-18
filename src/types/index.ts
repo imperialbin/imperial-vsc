@@ -4,6 +4,16 @@ export interface ImperialAPIResponse<T = any> {
   message?: string;
 }
 
+export interface AcceptableSettings {
+  apiToken: string;
+  longURLs: boolean;
+  shortURLs: boolean;
+  imageEmbed: boolean;
+  expiration: string | null;
+  encrypted: boolean;
+  password?: string;
+}
+
 export interface Document {
   id: string;
   content: string;
