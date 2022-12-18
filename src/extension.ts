@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import * as vscode from "vscode";
 import fetch from "node-fetch";
 import { Document, ImperialAPIResponse } from "./types";
@@ -34,17 +35,15 @@ export function activate(context: vscode.ExtensionContext) {
       const response = await fetch("https://imperial.hop.sh/v1/document", {
         method: "POST",
         headers: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           "Content-Type": "application/json",
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           Authorization: settings.apiToken as string,
         },
         body: JSON.stringify({
           content: selectedCode,
           settings: {
-            longerURLs: settings.longerURLS,
-            shortURLs: settings.shortURLS,
-            imageEmbed: settings.imageEmbed,
+            long_urls: settings.longerURLS,
+            short_urls: settings.shortURLS,
+            image_embed: settings.imageEmbed,
             expiration: settings.expiration,
             encrypted: settings.encrypted,
             password: settings.password,
