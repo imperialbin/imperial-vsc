@@ -12,7 +12,7 @@ Imperial is a hastebin alternative built with UI and user experience in mind.
 
 Quickly upload text and retrieve a URL with the text!
 
-![Upload Example GIF]("/assets/demo.gif")
+![Upload Example GIF]("https://github.com/imperialbin/imperial-vsc/blob/6d4bc9bef0163dc9e1f3391e0384313afb35b23d/assets/demo.gif")
 
 ## Settings
 
