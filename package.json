@@ -1,7 +1,7 @@
 {
   "name": "imperial-vsc",
   "displayName": "imperial-vsc",
-  "description": "Use IMPERIAL in your editor!",
+  "description": "Share code with anyone in a matter of seconds.",
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.74.0"
