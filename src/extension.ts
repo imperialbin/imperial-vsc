@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as vscode from "vscode";
-import fetch from "node-fetch";
+import axios from "axios";
 import { AcceptableSettings, Document, ImperialAPIResponse } from "./types";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -32,13 +32,9 @@ export function activate(context: vscode.ExtensionContext) {
         });
       }
 
-      const response = await fetch("https://api.imperialb.in/v1/document", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: settings.apiToken,
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        "https://api.imperialb.in/v1/document",
+        {
           content: selectedCode,
           settings: {
             long_urls: settings.longURLs,
@@ -49,14 +45,24 @@ export function activate(context: vscode.ExtensionContext) {
             password: settings.password,
             language: vscode.window.activeTextEditor?.document.languageId,
           },
-        }),
-      });
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: settings.apiToken,
+          },
+        }
+      );
 
-      const parsedResponse = (await response.json()) as ImperialAPIResponse<
+      const parsedResponse = (await response.data) as ImperialAPIResponse<
         Document & { password?: string }
       >;
 
-      if (!response.ok || !parsedResponse.success || !parsedResponse.data) {
+      if (
+        response.status !== 200 ||
+        !parsedResponse.success ||
+        !parsedResponse.data
+      ) {
         vscode.window.showErrorMessage(
           `An error occurred: ${
             parsedResponse?.message ?? response.statusText ?? "Unknown error"

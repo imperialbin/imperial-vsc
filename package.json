@@ -8,15 +8,12 @@
     "type": "git",
     "url": "https://github.com/imperialbin/imperial-vsc.git"
   },
-  "version": "10.0.2",
+  "version": "10.0.4",
   "engines": {
     "vscode": "^1.74.0"
   },
   "categories": [
     "Other"
-  ],
-  "activationEvents": [
-    "onCommand:imperial.uploadDocument"
   ],
   "license": "MPL-2.0",
   "main": "./dist/extension.js",
@@ -37,12 +34,12 @@
       }
     ],
     "configuration": {
-      "title": "Imperial",
+      "title": "imperial",
       "properties": {
         "imperial.apiToken": {
           "type": "string",
           "default": "",
-          "description": "API key (You need an API key for the below features and better API limit! Visit https://imperialb.in/account to get yours!)"
+          "description": "API key (You need an API key for the below features and better API limit! Visit https://imperialb.in/ to get yours!)"
         },
         "imperial.longURLs": {
           "type": "boolean",
@@ -107,7 +104,6 @@
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
-    "@types/node-fetch": "2",
     "@types/vscode": "^1.74.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
@@ -119,6 +115,6 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "node-fetch": "2"
+    "axios": "^1.4.0"
   }
 }
