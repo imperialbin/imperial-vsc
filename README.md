@@ -1,18 +1,14 @@
-# Imperial README
+# IMPERIAL
+Welcome to IMPERIAL's monolithic repository, storing the API, web interface, and API.
 
-Imperial is a hastebin alternative built with UI and user experience in mind.
+![Upload Example GIF]("/assets/demo.gif")
 
-### Connect With Us!
+## Other Products
+- [imperial.js](https://github.com/imperialbin/imperial.js) - JavaScript SDK for IMPERIAL's API.
+- [imperial.py](https://github.com/imperialbin/imperial.py) - Python SDK for IMPERIAL's API.
+- [imperial-rs](https://github.com/imperialbin/imperial-rs) - Rust SDK for IMPERIAL's API.
+- [imperial-vsc](https://github.com/imperialbin/imperial-vsc) - VSC extension for IMPERIAL's API.
 
-- [ImperialBin](https://imperialb.in)
-- [Discord](https://imperialb.in/discord)
-- [Github](https://imperialb.in/github)
-
-## Features
-
-Quickly upload text and retrieve a URL with the text!
-
-![Upload Example GIF]("https://github.com/imperialbin/imperial-vsc/blob/6d4bc9bef0163dc9e1f3391e0384313afb35b23d/assets/demo.gif")
 
 ## Settings
 
@@ -37,9 +33,3 @@ MacOS:
 ### Extension
 
 - `Imperial.uploadDocument`: Uploads the selected text to Imperial and responds with a URL of your document.
-
-## Requirements
-
-- `imperial-node`
-
-while these should come preinstalled with the extension, every system is different. If you face any troubles, try installing/resintalling these first.
