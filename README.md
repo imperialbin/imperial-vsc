@@ -1,7 +1,7 @@
 # IMPERIAL
 Welcome to IMPERIAL's monolithic repository, storing the API, web interface, and API.
 
-![Upload Example GIF]("/assets/demo.gif")
+![Upload Example GIF](/assets/demo.gif)
 
 ## Other Products
 - [imperial.js](https://github.com/imperialbin/imperial.js) - JavaScript SDK for IMPERIAL's API.
