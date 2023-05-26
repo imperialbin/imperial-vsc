@@ -1,15 +1,10 @@
 {
-  "name": "imperial",
-  "displayName": "imperial",
-  "description": "A hastebin alternative with rich features and user experience in mind",
-  "version": "5.0.2",
+  "name": "imperial-vsc",
+  "displayName": "imperial-vsc",
+  "description": "Share code with anyone in a matter of seconds.",
+  "version": "1.0.0",
   "engines": {
-    "vscode": "^1.54.0"
-  },
-  "license": "MPL-2.0",
-  "publisher": "Looskie",
-  "author": {
-    "name": "Looskie"
+    "vscode": "^1.74.0"
   },
   "categories": [
     "Other"
@@ -17,17 +12,13 @@
   "activationEvents": [
     "onCommand:imperial.uploadDocument"
   ],
-  "icon": "assets/logo.png",
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "imperial.uploadDocument",
-        "title": "Upload selected code",
-        "icon": {
-          "dark": "./assets/icons/saveDark.svg",
-          "light": "./assets/icons/saveLight.svg"
-        }
+        "title": "Upload Document",
+        "icon": "$(save)"
       }
     ],
     "keybindings": [
@@ -44,27 +35,40 @@
         "imperial.apiToken": {
           "type": "string",
           "default": "",
-          "description": "API key (You need an API key for the below features and no API limit! Visit https://imperialb.in/account to get yours!)"
+          "description": "API key (You need an API key for the below features and better API limit! Visit https://imperialb.in/account to get yours!)"
         },
-        "imperial.longerUrls": {
+        "imperial.longURLs": {
           "type": "boolean",
           "default": false,
-          "description": "Would you like longer URLs for your pastes? (more secure)."
+          "description": "32 character long URLs"
+        },
+        "imperial.shortURLs": {
+          "type": "boolean",
+          "default": false,
+          "description": "4 character long URLs"
         },
         "imperial.instantDelete": {
           "type": "boolean",
           "default": false,
-          "description": "Would you like your pastes to instantly delete after being viewed?"
+          "description": "Instantly deletes the document after being viewed"
         },
         "imperial.imageEmbed": {
           "type": "boolean",
           "default": false,
-          "description": "Would you like image embeds with your pastes?"
+          "description": "Takes a snapshot of the document and embeds with OG tags"
         },
         "imperial.expiration": {
-          "type": "number",
-          "default": "5",
-          "description": "How long would you like your pastes to last in days? (Max is 31 with API key, without API key it is max of 5 days)"
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null,
+          "description": "When the document expires, by default it will last forever. (in days)"
+        },
+        "imperial.encrypted": {
+          "type": "boolean",
+          "default": false,
+          "description": "Encrypts the document with AES256 with a password of your choice when provided, otherwise it will be encrypted with a cryptographically secure random password."
         }
       }
     },
@@ -90,27 +94,24 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:imperialbin/imperial-vsc.git"
+    "lint": "eslint src --ext ts"
   },
   "devDependencies": {
-    "@types/glob": "^7.1.3",
-    "@types/mocha": "^8.0.4",
-    "@types/node": "^12.11.7",
-    "@types/vscode": "^1.54.0",
-    "@typescript-eslint/eslint-plugin": "^4.14.1",
-    "@typescript-eslint/parser": "^4.14.1",
-    "eslint": "^7.21.0",
-    "glob": "^7.1.6",
-    "mocha": "^8.2.1",
-    "typescript": "^4.1.3",
-    "vscode-test": "^1.5.0"
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/node-fetch": "2",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.9.3"
   },
   "dependencies": {
-    "imperial-node": "^1.4.0"
+    "node-fetch": "2"
   }
 }

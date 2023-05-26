@@ -1,85 +1,99 @@
-import {
-  ExtensionContext,
-  commands,
-  workspace,
-  window,
-  env,
-  Uri,
-} from "vscode";
-import { DocumentSettings } from "./utilities/DocumentSettingsInterface";
-import { Imperial } from "imperial-node";
+/* eslint-disable @typescript-eslint/naming-convention */
+import * as vscode from "vscode";
+import fetch from "node-fetch";
+import { AcceptableSettings, Document, ImperialAPIResponse } from "./types";
 
-export function activate(context: ExtensionContext): any {
-  /* 
-  Rawr x3 nuzzles how are you pounces on you you're so warm o3o notices you
-  have a bulge o: someone's happy ;) nuzzles your necky wecky~ murr~ hehehe
-  rubbies your bulgy wolgy you're so big :oooo rubbies more on your bulgy wolgy
-  it doesn't stop growing ·///· kisses you and lickies your necky daddy likies
-  (; nuzzles wuzzles I hope daddy really likes $: wiggles butt and squirms I
-  want to see your big daddy meat~ wiggles butt I have a little itch o3o wags
-  tail can you please get my itch~ puts paws on your chest nyea~ its a seven
-  inch itch rubs your chest can you help me pwease squirms pwetty pwease sad
-  face I need to be punished runs paws down your chest and bites lip like I need
-  to be punished really good~ paws on your bulge as I lick my lips I'm getting
-  thirsty. I can go for some milk unbuttons your pants as my eyes glow you smell
-  so musky :v licks shaft mmmm~ so musky drools all over your cock your daddy
-  meat I like fondles Mr. Fuzzy Balls hehe puts snout on balls and inhales
-  deeply oh god im so hard~ licks balls punish me daddy~ nyea~ squirms more and
-  wiggles butt I love your musky goodness bites lip please punish me licks lips
-  nyea~ suckles on your tip so good licks pre of your cock salty goodness~ eyes
-  role back and goes balls deep mmmm~ moans and suckles o3o 
-  
-  (Tech) - https://www.youtube.com/watch?v=z1n9Jly3CQ8
-  */
+export function activate(context: vscode.ExtensionContext) {
+  const disposable = vscode.commands.registerCommand(
+    "imperial.uploadDocument",
+    async () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) return;
 
-  const disposable = commands.registerCommand("imperial.uploadDocument", () => {
-    const config = workspace.getConfiguration("imperial");
-    const editor = window.activeTextEditor;
+      const selectedCode = editor.document.getText(editor.selection);
+      if (selectedCode.trim().length === 0) return;
 
-    // If there is no editor
-    if (!editor) return;
+      const config = vscode.workspace.getConfiguration("imperial");
+      const settings: AcceptableSettings = {
+        apiToken: config.get("apiToken") ?? "",
+        longURLs: config.get("longURLs") ?? false,
+        shortURLs: config.get("shortURLs") ?? false,
+        imageEmbed: config.get("imageEmbed") ?? false,
+        expiration: config.get("expiration") ?? null,
+        encrypted: config.get("encrypted") ?? false,
+        password: undefined,
+      };
 
-    // Current highlighted code
-    const selectedCode = editor.document.getText(editor.selection);
-
-    const imperialAPI = new Imperial(config.apiToken);
-    const documentSettings: DocumentSettings = {
-      longerUrls: config.longerUrls || false,
-      instantDelete: config.instantDelete || false,
-      imageEmbed: config.imageEmbed || false,
-      expiration: config.expiration || 5,
-    };
-
-    imperialAPI.createDocument(
-      selectedCode,
-      documentSettings,
-      async (err, document) => {
-        // if error
-        if (err)
-          return window.showInformationMessage(
-            "This upload failed, you may be getting rate limited!"
-          );
-
-        // If it succeeds
-        const selection = await window.showInformationMessage(
-          // text
-          `Uploaded selected text to Imperial!\n${document?.formattedLink}`,
-          "Copy link",
-          "Open document"
-        );
-
-        const btnSelection = selection?.toLowerCase();
-        if (btnSelection === "copy link") {
-          return await env.clipboard.writeText(document!.formattedLink);
-        } else if (btnSelection === "open document") {
-          return await commands.executeCommand(
-            "vscode.open",
-            Uri.parse(document!.formattedLink)
-          );
-        }
+      if (settings.encrypted) {
+        settings.password = await vscode.window.showInputBox({
+          prompt:
+            "Enter a password to encrypt the document with (leave blank for autogen)",
+          password: true,
+        });
       }
-    );
-  });
+
+      const response = await fetch("https://api.imperialb.in/v1/document", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: settings.apiToken,
+        },
+        body: JSON.stringify({
+          content: selectedCode,
+          settings: {
+            long_urls: settings.longURLs,
+            short_urls: settings.shortURLs,
+            image_embed: settings.imageEmbed,
+            expiration: settings.expiration,
+            encrypted: settings.encrypted,
+            password: settings.password,
+            language: vscode.window.activeTextEditor?.document.languageId,
+          },
+        }),
+      });
+
+      const parsedResponse = (await response.json()) as ImperialAPIResponse<
+        Document & { password?: string }
+      >;
+
+      if (!response.ok || !parsedResponse.success || !parsedResponse.data) {
+        vscode.window.showErrorMessage(
+          `An error occurred: ${
+            parsedResponse?.message ?? response.statusText ?? "Unknown error"
+          }`
+        );
+        return;
+      }
+
+      const formattedLink = `${parsedResponse.data.links.formatted}${
+        parsedResponse.data.settings.encrypted
+          ? `#${parsedResponse.data.password}`
+          : ""
+      }`;
+
+      const selection = await vscode.window.showInformationMessage(
+        `Uploaded to IMPERIAL!\n${parsedResponse.data.links.formatted}`,
+        "Copy link",
+        "Open document"
+      );
+
+      const btnSelection = selection?.toLowerCase();
+
+      switch (btnSelection) {
+        case "copy link":
+          await vscode.env.clipboard.writeText(formattedLink);
+          break;
+        case "open document":
+          await vscode.commands.executeCommand(
+            "vscode.open",
+            vscode.Uri.parse(formattedLink)
+          );
+          break;
+        default:
+          break;
+      }
+    }
+  );
 
   context.subscriptions.push(disposable);
 }

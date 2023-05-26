@@ -4,15 +4,15 @@ Imperial is a hastebin alternative built with UI and user experience in mind.
 
 ### Connect With Us!
 
-- [ImperialBin](https://Imperialb.in)
-- [Discord](https://Imperialb.in/discord)
-- [Github](https://Imperialb.in/github)
+- [ImperialBin](https://imperialb.in)
+- [Discord](https://imperialb.in/discord)
+- [Github](https://imperialb.in/github)
 
 ## Features
 
 Quickly upload text and retrieve a URL with the text!
 
-![Upload Example GIF](https://media.giphy.com/media/YseOuoWYEdP96A8Hm1/giphy.gif)
+![Upload Example GIF]("https://github.com/imperialbin/imperial-vsc/blob/6d4bc9bef0163dc9e1f3391e0384313afb35b23d/assets/demo.gif")
 
 ## Settings
 

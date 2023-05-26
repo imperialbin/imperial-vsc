@@ -1,6 +1,6 @@
 # Change Log
-Rewritten in Typescript
 
-## [Unreleased]
-
-- 5.0.2
+## [1.0.0] - 2022-12-18
+- Complete rewrite
+- New settings
+- Better icons
