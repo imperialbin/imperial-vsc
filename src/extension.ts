@@ -21,6 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
         imageEmbed: config.get("imageEmbed") ?? false,
         expiration: config.get("expiration") ?? null,
         encrypted: config.get("encrypted") ?? false,
+        gist: config.get("gist") ?? false,
         password: undefined,
       };
 
@@ -44,6 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
             encrypted: settings.encrypted,
             password: settings.password,
             language: vscode.window.activeTextEditor?.document.languageId,
+            create_gist: settings.gist,
           },
         },
         {

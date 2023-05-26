@@ -11,6 +11,7 @@ export interface AcceptableSettings {
   imageEmbed: boolean;
   expiration: string | null;
   encrypted: boolean;
+  gist: boolean;
   password?: string;
 }
 
