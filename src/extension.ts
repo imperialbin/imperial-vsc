@@ -32,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
         });
       }
 
-      const response = await fetch("https://imperial.hop.sh/v1/document", {
+      const response = await fetch("https://api.imperialb.in/v1/document", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
