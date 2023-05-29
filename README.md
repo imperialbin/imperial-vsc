@@ -1,5 +1,5 @@
-# IMPERIAL
-Welcome to IMPERIAL's monolithic repository, storing the API, web interface, and API.
+# imperial-vsc
+Welcome to IMPERIAL's Visual Studo Code extension's repostiory.
 
 ![Upload Example GIF](/assets/demo.gif)
 
