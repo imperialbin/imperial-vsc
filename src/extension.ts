@@ -47,6 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
             language: vscode.window.activeTextEditor?.document.languageId,
             create_gist: settings.gist,
           },
+          infer_settings: true
         },
         {
           headers: {
